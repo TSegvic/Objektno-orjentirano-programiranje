@@ -1,25 +1,41 @@
 #include<iostream>
 using namespace std;
-typedef struct
+struct Vektor
 {
-	int *a;
+	int* a;
 	int logicka;
 	int fizicka;
-	/*vektor vector_new()
+	void vector_new(int init = 4)
 	{
-
+		a = new int[init];
+		logicka = 0;
+		fizicka = init;
 	}
 	void vector_delete()
 	{
-
+		delete[] a;
+		a = nullptr;
+		logicka = 0;
+		fizicka = 0;
 	}
-	vektor vector_push_back()
+	void vector_push_back(int value)
 	{
-
+		if (logicka == fizicka)
+		{
+			fizicka *= 2;
+			int* na = new int[fizicka];
+			for (int i = 0;i < logicka;i++)
+			{
+				na[i] = a[i];
+			}
+			delete[] a;
+			a = na;
+		}
+		a[logicka++] = value;
 	}
-	vektor vector_pop_back()
+	void vector_pop_back()
 	{
-
+		logicka--;
 	}
 	int vector_front()
 	{
@@ -27,14 +43,14 @@ typedef struct
 	}
 	int vector_back()
 	{
-		return a[logicka];
+		return a[logicka-1];
 	}
 	int vector_size()
 	{
 		return logicka;
-	}*/
-}vektor;
-void racun(int a[],int n, int& b, int& c)
+	}
+};
+void racun(int a[], int n, int& b, int& c)
 {
 	int min = a[0];
 	int max = a[0];
@@ -57,7 +73,22 @@ int main()
 	int a[] = { 0,1,2,3,4,5,6,7,8,9 };
 	int b, c;
 	vrati(a, 5)++;;
-	racun(a,10, b, c);
+	racun(a, 10, b, c);
 	cout << b << endl << c;
-	cout << endl <<a[5];
+	cout << endl << a[5]<<endl;
+	Vektor vec;
+	vec.vector_new();
+	vec.vector_push_back(1);
+	vec.vector_push_back(2);
+	vec.vector_push_back(3);
+	vec.vector_push_back(4);
+	vec.vector_push_back(5);
+
+	std::cout << "Prvi element: " << vec.vector_front() << std::endl;
+	std::cout << "Zadnji element: " << vec.vector_back() << std::endl;
+	std::cout << "Velicina vektora: " << vec.vector_size() << std::endl;
+
+	vec.vector_pop_back();
+	std::cout << "Velicina vektora nakon pop_back: " << vec.vector_size() << std::endl;
+	vec.vector_delete();
 }
