@@ -1,8 +1,6 @@
 #include <iostream>
 #include <iomanip>
-#include <stdexcept>
-#include <ctime>
-#include <cstdlib>
+
 
 struct Matrica {
     float** data;   
