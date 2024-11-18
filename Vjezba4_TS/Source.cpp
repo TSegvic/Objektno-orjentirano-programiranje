@@ -16,11 +16,11 @@ int brpon(string a, string b)
 }
 void ispravi(string& a)
 {
-	for (int i = 0; i < a.length()-1; i++)
+	for (int i = 0; i < a.length() - 1; i++)
 	{
-		if ((ispunct(a.at(i))||a.at(i)==' ') && a.at(i - 1) == ' ')
+		if ((ispunct(a.at(i)) || a.at(i) == ' ') && a.at(i - 1) == ' ')
 		{
-			a.erase(i - 1,1);
+			a.erase(i - 1, 1);
 			i--;
 		}
 		if (ispunct(a.at(i)) && a.at(i + 1) != ' ')
@@ -29,15 +29,15 @@ void ispravi(string& a)
 		}
 	}
 }
-void prored(vector<string>&a)
+void prored(vector<string>& a)
 {
 	string str;
 	int n;
-	cout <<endl<< "upisi broj stringova ";
+	cout << endl << "upisi broj stringova ";
 	cin >> n;
 	for (int i = 0; i < n; i++)
 	{
-		cout <<endl<< "upisi " << i + 1 << ". string"<<endl;
+		cout << endl << "upisi " << i + 1 << ". string" << endl;
 		cin >> str;
 		a.push_back(str);
 	}
@@ -47,7 +47,7 @@ void prored(vector<string>&a)
 	}
 	sort(a.begin(), a.end());
 }
-/*bool samoglasnik(char a)
+bool samoglasnik(char a)
 {
 	tolower(a);
 	if (a == 'a' || a == 'e' || a == 'i' || a == 'o' || a == 'u')
@@ -78,40 +78,46 @@ void tolatin(string& a)
 		a.erase(c.length(), c.length()+1);
 		a += b;
 		a += "ay";
-		
+
 	}
-	cout << endl << a;
 }
 void transform(vector<string> &a)
 {
 	string b = a.at(rand() % a.size());
 	string rj;
+	string gotovo;
 	int pos=0;
 	for (int i = 0; i < b.length(); i++)
 	{
 		if (ispunct(b.at(i)) || b.at(i) == ' ')
 		{
-			rj = b.substr(pos, i);
+			rj = b.substr(pos, i-pos);
 			tolatin(rj);
 			pos = i+1;
+			i++;
+			gotovo += rj + ' ';
 		}
 	}
+	cout << endl << "Pig Latin: " << gotovo;
 
-}*/
+}
 int main()
 {
-	//string a="qwertzr";
-	/*string b = "r";
-	
-	cout<<"Broj ponavljanja drugog string u prvom je : "<<brpon(a, b)<<endl;*/
+	string a = "qwertzr";
+	string b = "r";
 	string krivo = "Ja bih ,                    ako ikako mogu , ovu recenicu napisala ispravno.";
 	ispravi(krivo);
-	cout << krivo<<endl;
+	cout << krivo << endl;
 	vector<string> d;
-	/*prored(d);
+	prored(d);
 	for (int i = 0; i < d.size(); i++)
 	{
 		cout << d.at(i)<<endl;
-	}*/
-
+	}
+	vector<string> sentences = {
+		"What time is it?",
+		"This is a test sentence.",
+		"Very cool sentance omg!"
+	};
+	transform(sentences);
 }
