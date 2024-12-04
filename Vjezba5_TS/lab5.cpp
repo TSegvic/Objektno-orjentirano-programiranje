@@ -42,11 +42,16 @@ public:
 	}
 };
 class Igrac {
-public:
+private:
 	string ime;
 	vector<Karta> karte;
 	int bodovi;
+public:
 	Igrac(const string ime):ime(ime),bodovi(0){}
+	void setname(const string& imeig)
+	{
+		ime = imeig;
+	}
 	void dodajKarte(const vector<Karta>& noveKarte)
 	{
 		karte.insert(karte.end(), noveKarte.begin(), noveKarte.end());
@@ -118,7 +123,7 @@ int main()
 		string ime;
 		cout << "Unesite ime " << i + 1 << ". igraca: ";
 		cin >> ime;
-		igraci.emplace_back(ime);
+		igraci.at(i).setname(ime);
 	}
 	Mac mac;
 	mac.promjesaj();
