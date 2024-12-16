@@ -1,5 +1,5 @@
 #include "VirtualPet.hpp"
-#include <iosteram>
+#include <iostream>
 
 	VirtualPet::VirtualPet(std::string n, std::string k) {
 		name = n;
@@ -71,6 +71,6 @@
 	}
 	void VirtualPet::print()
 	{
-		cout << "Ljubimac " << name << " vrste: " << kind << " ( Glad: " << hunger << " Sreca: " << happy << " je budan :" << awake << ")" << endl;
+		std::cout << "Ljubimac " << name << " vrste: " << kind << " ( Glad: " << hunger << " Sreca: " << happy << " je budan :" << awake << ")" << endl;
 	}
 };

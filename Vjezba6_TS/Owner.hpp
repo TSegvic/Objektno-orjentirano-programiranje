@@ -8,6 +8,8 @@ private:
 	std::string name;
 	std::vector<VirtualPet> pets;
 public:
+	Owner(std::string n);
+
 	Owner(std::string n, std::vector<VirtualPet>p);
 	
 	Owner(Owner& other);

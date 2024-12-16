@@ -2,7 +2,10 @@
 #include<iostream>
 #include<algorithm>
 #include<random>
-
+	Owner::Owner(std::string n)
+	{
+		name = n;
+	}
 	Owner::Owner(std::string n, std::vector<VirtualPet>p)
 	{
 		name = n;

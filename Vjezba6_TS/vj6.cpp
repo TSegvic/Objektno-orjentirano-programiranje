@@ -1,97 +1,56 @@
+#include "VirtualPet.hpp"
+#include "Owner.hpp"
 #include <iostream>
-#include <random>
-#include<algorithm>
-#include<string>
-#include<vector>
-using namespace std;
+#include <vector>
+#include <algorithm>
 
-class VirtualPet {
-private:
-	string name;
-	string kind;
-	int hunger;
-	int happy;
-	bool awake;
-public:
-	VirtualPet(string n, string k) {
-		name = n;
-		kind = k;
-		hunger = 50;
-		happy = 50;
-		awake = true;
-	}
-	VirtualPet(VirtualPet& other)
-	{
-		name = other.name;
-		kind = other.kind;
-		hunger = other.hunger;
-		happy = other.happy;
-		awake = other.awake;
-	}
-	void eat()
-	{
-		if (hunger - 10 > 0)
-			hunger = hunger - 10;
-		else
-			hunger = 0;
-		if (happy + 10 < 100)
-			happy = happy + 10;
-		else
-			happy = 100;
-		if (hunger < 30)
-			sleep();
-	}
-	void sleep()
-	{
-		if (hunger > 30)
-			cout << name << " je gladan ne moze spavat";
-		while(hunger < 30)
-		{
-			awake = false;
-			hunger = min(100,hunger + 10);
-			happy = min(100, happy + 15);
-		}
-		awake = true;
-	}
-	void play()
-	{
-		if (awake)
-		{
-			hunger = min(100, hunger + 10);
-			happy = min(100, happy + 15);
-		}
-	}
-	const string getName()
-	{
-		return name;
-	}
-	const string getKind()
-	{
-		return kind;
-	}
-	int getHappines()
-	{
-		return happy;
-	}
-	int getHunger()
-	{
-		return hunger;
-	}
-	bool getAwake()
-	{
-		return awake;
-	}
-	void print()
-	{
-		cout << "Ljubimac " << name << " vrste: " << kind << " ( Glad: " << hunger << " Sreca: " << happy << " je budan :" << awake << ")" << endl;
-	}
-};
-int main()
+Owner happiestOwner(std::vector<Owner> owners)
 {
-	VirtualPet mate("Mate", "zebra");
-	mate.eat();
-	mate.sleep();
-	mate.play();
-	mate.eat();
-	mate.sleep();
+	std::vector<int> brojsretnih;
+	for (int i = 0;i < owners.size();i++) {
+		int brojs = 0;
+		for (int j = 0;j < owners.at(i).getPets().size();j++)
+		{
+			if (owners.at(i).getPets().at(j).getHappines())
+				brojs++;
+		}
+		brojsretnih.push_back(brojs);
+	}
+	int naj = *std::max_element(brojsretnih.begin(), brojsretnih.end());
+	return owners.at(naj);
+}
+int main(void)
+{
+	int numvlas, numakcije, numpets;
+	std::cout << "Unesite broj vlasnika: ";
+	std::cin >> numvlas;
+	std::cout << "Unesite broj ljubimaca po vlasniku: ";
+	std::cin >> numpets;
+	std::cout << "Unesite broj akcija po ljubimcu: ";
+	std::cin >> numakcije;
+	std::vector<Owner> owners;
+	for (int i = 0;i < numvlas;i++)
+	{
+		std::string ime;
+		std::cout << "Unesite ime " << i + 1 << " vlasnika";
+		std::cin >> ime;
+		Owner owner(ime);
+		for (int j = 0;j < numpets;j++)
+		{
+			std::string imelj, tip;
+			std::cout << "Unesite ime " << j + 1 << " ljubimca";
+			std::cin >> imelj;
+			std::cout << "Unesite vrstu ljubimca";
+			std::cin >> tip;
+			VirtualPet pet(imelj, tip);
+			owner.addPet(pet);
+		}
+		owners.push_back(std::move(owner));
+	}
+	for (auto& owner : owners) {
+		owner.performactions(numakcije / 2, numakcije / 2);
+		owner.print();
+	}
+	happiestOwner(owners).print();
+	return 0;
 }
