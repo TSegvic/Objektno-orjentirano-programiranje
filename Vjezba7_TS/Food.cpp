@@ -9,18 +9,19 @@ Food::~Food()
 {
 	--counter;
 }
-static void increase(int kol)
+
+ void Food::increase(int kol)
 {
 	 counter += kol;
 }
-static void decrease(int kol)
+  void Food::decrease(int kol)
 {
 	if (counter - kol < 0)
 		counter = 0;
 	else
 		counter = counter - kol;
 }
-static void print()
+ void Food::print()
 {
 	std::cout << "Kolicina hrane iznosi: " << counter << " porcija" << std::endl;
 }
